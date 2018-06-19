@@ -46,39 +46,35 @@ function like(){
     
 }
 
+function commentsbtnf(id){
+    var usercmt =[]; 
+    usercomments.forEach(e => {
+        if(e.postId == id)
+            usercmt.push(e.name);
+    });
+    var table1;
+    for(var i=0; i<6; i++){
+        table1+= `<section><p>Comments: ${[usercmt]}</p></section>`;
+    }
+    $(this).html(table1);
+    console.log(usercmt);
+}
+
 function posttable(){
     if(localStorage.allusers){
         userpost= JSON.parse(localStorage.allposts);
         user= JSON.parse(localStorage.allusers);
-        comments= JSON.parse(localStorage.allcomments);
+        usercomments= JSON.parse(localStorage.allcomments);
     }
     
     var table;
     
     for(var i = 0; i<100; i++){
-        table += `<section id=post_${[userpost[i].id]} style="border= 1px solid black"><p>UserName: ${[userpost[i].userId]} </p><p>Title:  ${userpost[i].title}</p><p>Post: ${userpost[i].body} </p>
-        </br><button id="like_${[userpost[i].id]}">Like</button><button id="comments_${[userpost[i].id]}">Comments</button><button id="delete_${[userpost[i].id]}">Delete</button></section>`;
+        table += `<section id=post_${[userpost[i].id]}><p>UserName: ${[userpost[i].userId]} </p><p>Title:  ${userpost[i].title}</p><p>Post: ${userpost[i].body} </p>
+        <button class="commentsbtn" onclick="commentsbtnf(${[userpost[i].id]})" id="comments_${[userpost[i].id]}" >Comments</button><button id="delete_${[userpost[i].id]}">Delete</button><div id="dispcom_${[userpost[i].id]}"></div></section>`;
     }
     
     $("#post").html(table);
-
-    // $("#like_${[userpost[i].id]}").click(
-    //     $(this).css('background-color', isButtonBlue ? 'red' : 'blue');
-    //     isButtonBlue = !isButtonBlue;
-    // );
-
-    jQuery(document).on('click', 'button[id= like_${[userpost[i].id]}]', function(){
-
-        var clicked= true;
-        if(clicked){
-            $('#post_${[userpost[i].id]}').css('background-color', 'red');
-            clicked  = false;
-        } else {
-            $('#post_${[userpost[i].id]}').css('background-color', 'blue');
-            clicked  = true;
-        }   
-        
-    })
     
 }
 
